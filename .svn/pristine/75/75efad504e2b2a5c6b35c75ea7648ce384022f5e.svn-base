@@ -1,0 +1,41 @@
+'use strict';
+
+Nate.controller('PhotoController', function PhotoController ($scope, PhotoService) {
+	var self = this;
+
+	this.init = function() {
+		self.loadData();
+		self.load();
+	}
+
+	this.loadData = function() {
+		$scope.slides = PhotoService.getPhotos();
+		$scope.currentIndex = 0;
+	}
+
+	this.load = function() {
+		self.setPageEvents();
+
+		new Slideshow();
+	}
+
+	this.setPageEvents = function() {
+		$scope.prevSlide = function () {
+			$scope.currentIndex = ($scope.currentIndex < $scope.slides.length - 1) ? ++$scope.currentIndex : 0;
+		};
+
+		$scope.nextSlide = function () {
+			$scope.currentIndex = ($scope.currentIndex > 0) ? --$scope.currentIndex : $scope.slides.length - 1;
+		};
+
+		$scope.setCurrentSlideIndex = function (index) {
+			$scope.currentIndex = index;
+		};
+
+		$scope.isCurrentSlideIndex = function (index) {
+			return $scope.currentIndex === index;
+		};
+	}
+
+	this.init();
+});

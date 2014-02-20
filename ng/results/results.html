@@ -1,0 +1,25 @@
+<section class="results row">
+	<h1>Results</h1>
+	<div class="col-md-6 col-md-offset-3 well">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Date</th>
+					<th>Event</th>
+					<th>Location</th>
+					<th>Race</th>
+					<th>Place</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-class="{stripe: ($index % 2 == 0)}" ng-repeat="result in results | orderBy: 'date':true ">
+					<td>{{result.date}}</td>
+					<td>{{result.eventName}}</td>
+					<td>{{result.location}}</td>
+					<td>{{result.race}}</td>
+					<td>{{result.place}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</section>

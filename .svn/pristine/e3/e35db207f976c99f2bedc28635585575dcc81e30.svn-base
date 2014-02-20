@@ -1,0 +1,11 @@
+<section class="sponsors row">
+	<article class="sponsor">
+		<ul>
+			<li ng-if="sponsor.isVisible" ng-repeat="sponsor in sponsors">
+				<a target="_blank" href="{{sponsor.url}}">{{sponsor.name}}
+				<img height="50px" ng-if="sponsor.fileName" src="assets/images/sponsor/{{sponsor.fileName}}" />
+				</a>
+			</li>
+		</ul>
+	</article>
+</section>

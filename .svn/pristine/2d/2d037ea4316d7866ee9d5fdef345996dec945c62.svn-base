@@ -1,0 +1,24 @@
+<section class="about row">
+	<div class="image col-sm-6 col-md-6">
+		<img class="img-responsive" src="assets/images/natebw.jpg" />
+	</div>
+	<article class="col-sm-6 col-md-6">
+		<h1>{{titleText}}</h1>
+		<p class="lead">{{leadText}}</p>
+		<hr />
+		<p>{{aboutText}}</p>
+		<hr />
+		<dl>
+			<dt>Age</dt>
+				<dd>{{stats.age}}</dd>
+			<dt>Home Town</dt>
+				<dd>{{stats.homeTown}}</dd>
+			<dt>Home Resort</dt>
+				<dd>{{stats.homeResort}}</dd>
+			<dt>Stance/Width</dt>
+				<dd>{{stats.boardSetup.stance}}</dd><dd>{{stats.boardSetup.width}}</dd>
+			<dt ng-repeat-start="angle in stats.boardSetup.stanceAngle">{{angle.type}}</dt>
+				<dd>Front {{angle.front}}&deg;</dd><dd ng-repeat-end>Back {{angle.back}}&deg;</dd>
+		</dl>
+	</article>
+</section>

@@ -1,0 +1,58 @@
+'use strict';
+
+Nate.controller('PhotoController', function PhotoController ($scope, SlideshowService, PhotoService) {
+	var self = this;
+
+	this.init = function() {
+		self.loadData();
+		self.load();
+	}
+
+	this.loadData = function() {
+		$scope.slides = PhotoService.getPhotos();
+	}
+
+	this.load = function() {
+		SlideshowService.init();
+	}
+
+	this.init();
+});
+
+
+
+Nate.directive('resizeFrame', function() {
+	function resizeFrame($el) {
+		$el.height($el.width() / 1.5);
+	}
+
+	return {
+		restrict: 'A',
+		replace: false,
+		scope: true,
+		link: function(scope, $el, attrs) {
+			resizeFrame($el);
+
+			var viewport = {
+				width: $(window).width(),
+				height: $(window).height()
+			}
+
+			$(window).on('resize', function() {
+				// console.log($el.width())
+				// resizeFrame($el);
+
+				// var scale = $(window).width() / viewport.width;
+				// scale = 1;
+				// // console.log(scale);
+
+				// var frame = document.getElementById("frame");
+				// 	frame.style["-webkit-transform"] = 'scale(' + scale + ', ' + scale + ')';
+				// 	frame.style["-moz-transform"] = 'scale(' + scale + ', ' + scale + ')';
+				// 	frame.style["-ms-transform"] = 'scale(' + scale + ', ' + scale + ')';
+				// 	frame.style["-o-transform"] = 'scale(' + scale + ', ' + scale + ')';
+				// 	frame.style["transform"] = 'scale(' + scale + ', ' + scale + ')';
+			});
+		}
+	};
+});

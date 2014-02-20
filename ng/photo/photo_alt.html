@@ -1,0 +1,102 @@
+<style>
+	ul li {
+		list-style-type: none;
+	}
+	.carousel {
+		background-color: #EFEFEF;
+		height: 100%;
+		overflow: hidden;
+		position: relative;
+		width: 100%;
+		z-index: 0;
+	}
+
+	/*.frame {
+		border: 15px solid black;
+		margin: 10px;
+	}*/
+
+	.carousel {
+	}
+
+	.flex-viewport ul {
+		padding: 0;
+		margin: 0;
+		width: 100%;
+		font-size: 0;
+	}
+
+	.flex-viewport ul li {
+		display: inline-block;
+	}
+
+	.flex-viewport ul li img {
+		width: 100%;
+	}
+
+	.flex-control-paging ul.dots {
+		margin: 0;
+		width: 100%;
+	}
+
+	.flex-control-paging li.dot {
+		display: inline-block;
+	    height: 12px;
+	    margin: 0 8px;
+	    position: relative;
+	    width: 12px;
+	}
+
+	.flex-control-paging li a {
+		background: none repeat scroll 0 0 #FFFFFF;
+		border: 1px solid #00B1FF;
+		border-radius: 50% 50% 50% 50%;
+		box-shadow: none;
+		display: inline-block;
+		height: 10px;
+		left: 2px;
+		outline: medium none;
+		overflow: hidden;
+		position: absolute;
+		text-indent: 100%;
+		top: 2px;
+		white-space: nowrap;
+		width: 10px;
+	}
+
+	.flex-control-paging li a.active {
+		background-color: #00B1FF;
+    	border-color: #00B1FF;
+	}
+</style>
+
+<section class="photo-alt2">
+	<div class="frame" id="frame" resize-frame>
+		<div class="carousel">
+			<div class="flex-viewport">
+				<ul>
+					<li ng-repeat="slide in slides">
+						<img src="{{slide.image}}" title="{{slide.description}}" />
+					</li>
+				</ul>
+			</div>
+
+			<nav class="flex-control-paging">
+				<ul class="dots">
+					<li class="dot" ng-repeat="slide in slides">
+						<a href="javascript:void(0);"></a>
+					</li>
+				</ul>
+			</nav>
+
+			<div class="flex-direction-nav">
+				<ul class="flex-direction-nav">
+					<!-- Data bound to the prev image title -->
+					<li><a href="#" class="flex-prev">Landing</a></li>
+					<!-- Data bound to the next image title -->
+					<li><a href="#" class="flex-next">Photo</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>

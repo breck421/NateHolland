@@ -1,0 +1,120 @@
+// ANIMATIONS
+	.transition(...) {
+		-webkit-transition: @arguments;
+		-moz-transition: @arguments;
+		-ms-transition: @arguments;
+		-o-transition: @arguments;
+		transition: @arguments;
+	}
+
+	.transform(...) {
+		-webkit-transform: @arguments;
+		-moz-transform: @arguments;
+		-o-transform: @arguments;
+		-ms-transform: @arguments;
+		transform: @arguments;
+	}
+
+	.translate3d(@x:0, @y:0, @z:0) {
+		.transform(translate3d(@x, @y, @z));
+	}
+
+
+// EFFECTS
+	.background-cover() {
+		background-repeat: no-repeat;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+	}
+
+	.opacity(@opacity: 0.5) {
+		-webkit-opacity:@opacity;
+		-moz-opacity:@opacity;
+		opacity: @opacity;
+	}
+
+	.box-sizing(@type: border-box) {
+		-webkit-box-sizing: @type;
+		-moz-box-sizing: @type;
+		box-sizing: @type;
+	}
+
+	.box-shadow(@shadow) {
+		-webkit-box-shadow: @shadow;
+		-moz-box-shadow: @shadow;
+		box-shadow: @shadow;
+	}
+
+	.border-radius(@radius) {
+		-html-border-radius: @radius;
+		-webkit-border-radius: @radius;
+		-moz-border-radius: @radius;
+		border-radius: @radius;
+	}
+
+	.vertical(@start-color: #555; @end-color: #333; @start-percent: 0%; @end-percent: 100%) {
+		background-image: -webkit-gradient(linear, left @start-percent, left @end-percent, from(@start-color), to(@end-color)); // Safari 4+, Chrome 2+
+		background-image: -webkit-linear-gradient(top, @start-color, @start-percent, @end-color, @end-percent); // Safari 5.1+, Chrome 10+
+		background-image:  -moz-linear-gradient(top, @start-color @start-percent, @end-color @end-percent); // FF 3.6+
+		background-image: linear-gradient(to bottom, @start-color @start-percent, @end-color @end-percent); // Standard, IE10
+		background-repeat: repeat-x;
+	}
+
+	.vertical-three-colors(@start-color: #00b3ee; @mid-color: #7a43b6; @color-stop: 50%; @end-color: #c3325f) {
+		background-image: -webkit-gradient(linear, 0 0, 0 100%, from(@start-color), color-stop(@color-stop, @mid-color), to(@end-color));
+		background-image: -webkit-linear-gradient(@start-color, @mid-color @color-stop, @end-color);
+		background-image: -moz-linear-gradient(top, @start-color, @mid-color @color-stop, @end-color);
+		background-image: linear-gradient(@start-color, @mid-color @color-stop, @end-color);
+		background-repeat: no-repeat;
+	}
+
+	.depressed() {
+		background-image: none;
+		background-color: #000;
+		border-color: #000;
+		background-repeat: no-repeat;
+		color: #FFF;
+	}
+
+	.gradientBar(@primaryColor, @secondaryColor, @textColor) {
+		color: @textColor;
+		.vertical-three-colors(@primaryColor; @secondaryColor; 65%; @secondaryColor);
+	}
+//
+
+// HIGHLIGHTS
+	.highlight-alert() {
+		background-color: @alertBackgroundColor;
+		border: 1px solid @alertBorderColor;
+	}
+
+	.highlight-warning() {
+		background-color: @warningBackgroundColor;
+		border: 1px solid @warningBorderColor;
+	}
+
+	.highlight-success() {
+		background-color: @successBackgroundColor;
+		border: 1px solid @successBorderColor;
+	}
+
+	.highlight-info() {
+		background-color: @infoBackgroundColor;
+		border: 1px solid @infoBorderColor;
+	}
+// HIGHLIGHTS
+
+
+.ie7-restore-left-whitespace() {
+	*margin-left: .3em;
+
+	&:first-child {
+		*margin-left: 0;
+	}
+}
+
+.ie7-restore-right-whitespace() {
+	*margin-right: .3em;
+}

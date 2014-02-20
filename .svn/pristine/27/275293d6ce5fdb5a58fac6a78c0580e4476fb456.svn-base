@@ -1,0 +1,117 @@
+'use strict';
+
+var Nate = angular.module('Nate', [
+	'ngRoute',
+	'ngResource',
+	'ngSanitize',
+	'ngAnimate'
+]);
+	// 'jp.common.mod'
+
+Nate.config(function($routeProvider) {
+	$routeProvider
+		.when('/home', {
+			templateUrl : "ng/home/home.html",
+			controller : 'HomeController'
+		})
+		.when('/about', {
+			templateUrl : "ng/about/about.html",
+			controller : 'AboutController'
+		})
+		.when('/sponsor', {
+			templateUrl : "ng/sponsor/sponsor.html",
+			controller : 'SponsorController'
+		})
+		.when('/contact', {
+			templateUrl : "ng/contact/contact.html",
+			controller : 'ContactController'
+		})
+		.when('/photo', {
+			templateUrl : "ng/photo/photo.html",
+			controller : 'PhotoController'
+		})
+		.when('/photo_alt', {
+			templateUrl : "ng/photo/photo_alt.html",
+			controller : 'PhotoController'
+		})
+		.when('/photo', {
+			templateUrl : "ng/photo/photo.html",
+			controller : 'PhotoController'
+		})
+		.when('/video', {
+			templateUrl : "ng/video/video.html",
+			controller : 'VideoController'
+		})
+		.when('/results', {
+			templateUrl : "ng/results/results.html",
+			controller : 'ResultsController'
+		})
+		.otherwise({redirectTo: 'home'})
+		;
+});
+
+Nate.animation('.slide-animation', function () {
+	return {
+		addClass: function (element, className, done) {
+			if (className == 'ng-hide') {
+				TweenMax.to(element, 0.5, {left: -element.parent().width(), onComplete: done });
+			}
+			else {
+				done();
+			}
+		},
+		removeClass: function (element, className, done) {
+			if (className == 'ng-hide') {
+				element.removeClass('ng-hide');
+
+				TweenMax.set(element, { left: element.parent().width() });
+				TweenMax.to(element, 0.5, {left: 0, onComplete: done });
+			}
+			else {
+				done();
+			}
+		}
+	};
+});
+
+Nate.run(function ($rootScope, SponsorService) {
+	$rootScope.today = new Date();
+	$rootScope.sponsors = SponsorService.getSponsors();
+});
+
+Nate.controller('AppController', function AppController ($scope) {
+	$scope.mainLinks = [
+		{
+			display: 'Home',
+			link: '#home',
+			target: ''
+		},
+		{
+			display: 'Img1',
+			link: '#img1',
+			target: ''
+		},
+		{
+			display: 'Img2',
+			link: '#img2',
+			target: ''
+		},
+		{
+			display: 'About',
+			link: '#about',
+			target: ''
+		},
+		{
+			display: 'Sponsors',
+			link: '#sponsor',
+			target: ''
+		},
+		{
+			display: 'Footer',
+			link: '#footer',
+			target: ''
+		}
+	];
+});
+
+Nate.service('SlideshowService', Slideshow);

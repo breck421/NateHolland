@@ -1,0 +1,271 @@
+.slider {
+	background: @primary;
+	border: 20px solid @darkestgrey;
+	height: 400px;
+	margin-top: 20px;
+	overflow: hidden;
+	position: relative;
+	width: 800px;
+
+	h2 {
+		text-align: right;
+	}
+
+	.arrow {
+		background: url(../images/icons/blank.gif) no-repeat;
+		cursor: pointer;
+		display: block;
+		height: 71px;
+		margin-top: -35px;
+		outline: none;
+		position: absolute;
+		top: 50%;
+		width: 36px;
+		z-index: 1002;
+
+		&.prev {
+			text-indent: -9999px;
+			.opacity(0.5);
+			.transition(0.2s linear all);
+			background-image: url(../images/icons/prev_off.png);
+			left: 20px;
+
+			&:hover {
+				.opacity(1);
+				background-image: url(../images/icons/prev_on.png);
+			}
+		}
+
+		&.next {
+			text-indent: 9999px;
+			.opacity(0.5);
+			.transition(0.2s linear all);
+			background-image: url(../images/icons/next_off.png);
+			right: 20px;
+
+			&:hover {
+				.opacity(1);
+				background-image: url(../images/icons/next_on.png);
+			}
+		}
+	}
+
+	.slide {
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+
+
+	// NAV
+	// ---------------------------------------------------------
+	.nav {
+		text-align: center;
+		display: block;
+		position: absolute;
+		z-index: 1002;
+		left: 0;
+		bottom: -4px;
+		right: 0;
+		height: 48px;
+
+		.wrapper {
+			margin: 0 auto;
+			width: 100%;
+			padding: 1em 0 .8em;
+
+			ul {
+				margin: 0;
+				width: 100%;
+
+				.dot {
+					display: inline-block;
+					zoom: 1;
+					position: relative;
+					margin: 0 8px;
+					width: 12px;
+					height: 12px;
+
+					a {
+
+						.border-radius(50%);
+						.box-shadow(none);
+						.transition(background-color 0.25s, border-color 0.25s);
+
+						background: #FFF;
+						border: 1px solid @primary;
+						display: inline-block;
+						height: 10px;
+						left: 2px;
+						outline: none;
+						overflow: hidden;
+						position: absolute;
+						text-indent: 100%;
+						top: 2px;
+						white-space: nowrap;
+						width: 10px;
+						zoom: 1;
+
+						&.active, &:active, &[active] {
+							border-color: @primary;
+							background-color: @primary;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.nonDraggableImage{
+		-webkit-user-drag: none;
+	}
+
+	&.video {
+		margin: 0 auto;
+		width: 800px;
+		height: 600px;
+	}
+}
+
+
+.photo-alt {
+	#slides {
+		width: 100%; height: 100%;
+		white-space: nowrap;
+		font-size: 0;
+		.translate3d(0; 0; 0);
+
+		&.animate {
+			.transition(all, .5s, ease-out);
+		}
+
+		.slide {
+			width: 100%; height: 100%;
+			display: inline-block;
+			.background-cover() !important;
+			background-position: center center;
+
+			&.slide:nth-child(1) { background: url('@{gallery}start.jpg') bottom center;}
+			&.slide:nth-child(2) { background: url('@{gallery}chutedescent.jpg') bottom center;}
+			&.slide:nth-child(3) { background: url('@{gallery}fistpump.jpg');}
+			&.slide:nth-child(4) { background: url('@{gallery}gastein.jpg') right bottom;}
+			&.slide:nth-child(5) { background: url('@{gallery}layoutpow.jpg');}
+			&.slide:nth-child(6) { background: url('@{gallery}lookback.jpg') bottom center;}
+			&.slide:nth-child(7) { background: url('@{gallery}onefoot.jpg') center left;}
+			&.slide:nth-child(8) { background: url('@{gallery}podium.jpg');}
+			&.slide:nth-child(9) { background: url('@{gallery}racesolo.jpg') top center;}
+			&.slide:nth-child(10) { background: url('@{gallery}rollers.jpg');}
+			&.slide:nth-child(11) { background: url('@{gallery}tomahawk.jpg');}
+			&.slide:nth-child(12) { background: url('@{gallery}xcourse.jpg');}
+		}
+	}
+}
+
+
+// .photo-alt2 {
+// 	#slides {
+// 		.translate3d(0; 0; 0);
+// 		width: 100%; height: 100%;
+// 		font-size: 0;
+
+// 		&.animate {
+// 			.transition(all, .5s, ease-out);
+// 		}
+
+// 		.slide {
+// 			width: 100%; height: 100%;
+// 			display: inline-block;
+// 			.background-cover() !important;
+// 			background-position: center center;
+
+// 			&.slide:nth-child(1) { background: url('@{gallery}start.jpg') bottom center;}
+// 			&.slide:nth-child(2) { background: url('@{gallery}chutedescent.jpg') bottom center;}
+// 			&.slide:nth-child(3) { background: url('@{gallery}fistpump.jpg');}
+// 			&.slide:nth-child(4) { background: url('@{gallery}gastein.jpg') right bottom;}
+// 			&.slide:nth-child(5) { background: url('@{gallery}layoutpow.jpg');}
+// 			&.slide:nth-child(6) { background: url('@{gallery}lookback.jpg') bottom center;}
+// 			&.slide:nth-child(7) { background: url('@{gallery}onefoot.jpg') center left;}
+// 			&.slide:nth-child(8) { background: url('@{gallery}podium.jpg');}
+// 			&.slide:nth-child(9) { background: url('@{gallery}racesolo.jpg') top center;}
+// 			&.slide:nth-child(10) { background: url('@{gallery}rollers.jpg');}
+// 			&.slide:nth-child(11) { background: url('@{gallery}tomahawk.jpg');}
+// 			&.slide:nth-child(12) { background: url('@{gallery}xcourse.jpg');}
+// 		}
+// 	}
+
+
+// 	ul li {
+// 		list-style-type: none;
+// 	}
+
+// 	.carousel {
+// 		background-color: #EFEFEF;
+// 		height: 100%;
+// 		overflow: hidden;
+// 		position: relative;
+// 		width: 100%;
+// 		z-index: 0;
+// 	}
+
+// 	.frame {
+// 		border: 15px solid black;
+// 		margin: 10px;
+// 	}
+
+// 	.carousel {
+// 	}
+
+// 	.flex-viewport {
+// 		ul {
+// 			padding: 0;
+// 			margin: 0;
+// 			width: 100%;
+// 			font-size: 0;
+
+// 			li {
+// 				display: inline-block;
+
+// 				img {
+// 					width: 100%;
+// 				}
+// 			}
+// 		}
+// 	}
+
+// 	.flex-control-paging {
+// 		ul.dots {
+// 			margin: 0;
+// 			width: 100%;
+
+// 			li.dot {
+// 				display: inline-block;
+// 			    height: 12px;
+// 			    margin: 0 8px;
+// 			    position: relative;
+// 			    width: 12px;
+
+// 			    a {
+// 					background: none repeat scroll 0 0 #FFFFFF;
+// 					border: 1px solid #00B1FF;
+// 					border-radius: 50% 50% 50% 50%;
+// 					box-shadow: none;
+// 					display: inline-block;
+// 					height: 10px;
+// 					left: 2px;
+// 					outline: medium none;
+// 					overflow: hidden;
+// 					position: absolute;
+// 					text-indent: 100%;
+// 					top: 2px;
+// 					white-space: nowrap;
+// 					width: 10px;
+
+// 					&.active {
+// 						background-color: #00B1FF;
+// 				    	border-color: #00B1FF;
+// 					}
+// 				}
+// 			}
+// 		}
+// 	}
+// }

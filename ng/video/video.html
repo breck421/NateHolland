@@ -1,0 +1,32 @@
+<section class="row videos">
+<!-- 	<ul>
+		<li ng-if="video.isVisible" ng-repeat="video in videos">
+			<a href="javascript:void(0);" ng-class="{'active':isCurrentVideoIndex($index)}" ng-click="setCurrentVideoIndex($index);">{{video.name}}</a>
+		</li>
+	</ul> -->
+
+	<h2>{{title}}</h2>
+	<div class="slider video">
+		<a class="arrow prev" href="javascript:void(0)" ng-click="nextVideo()">Previous</a>
+		<a class="arrow next" href="javascript:void(0)" ng-click="prevVideo()">Next</a>
+
+		<h2 ng-repeat-start="video in videos" ng-if="video.isVisible" ng-hide="!isCurrentVideoIndex($index)">{{video.name}}</h2>
+		<iframe ng-src="{{trustSrc(video.src)}}" ng-repeat-end ng-if="video.isVisible" ng-hide="!isCurrentVideoIndex($index)" width="800" height="600" frameborder="0" allowfullscreen></iframe>
+
+		<nav class="nav">
+			<div class="wrapper">
+				<ul class="dots">
+					<li class="dot" ng-repeat="video in videos" ng-if="video.isVisible">
+						<a href="javascript:void(0);" ng-class="{'active':isCurrentVideoIndex($index)}" title="{{video.name}}" ng-click="setCurrentVideoIndex($index);">{{video.description}}</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+
+
+</section>
+
+
+
+

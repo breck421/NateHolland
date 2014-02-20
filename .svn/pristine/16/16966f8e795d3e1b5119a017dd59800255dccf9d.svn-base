@@ -1,0 +1,32 @@
+'use strict';
+
+Nate.factory('PhotoService', function PhotoService () {
+	var photos = [
+		{
+			image: 'assets/images/racesolo.jpg',
+			filename: 'racesolo.jpg',
+			description: 'Image 02'
+		},
+		{
+			image: 'assets/images/home.jpg',
+			filename: 'home.jpg',
+			description: 'Image 01'
+		},
+		{
+			image: 'assets/images/tomahawk.jpg',
+			filename: 'tomahawk.jpg',
+			description: 'Image 03'
+		},
+		{
+			image: 'assets/images/usteamlogo.jpg',
+			filename: 'usteamlogo.jpg',
+			description: 'Image 04'
+		}
+	];
+
+	return {
+		getPhotos: function() {
+			return photos;
+		}
+	}
+});

@@ -1,0 +1,87 @@
+<style>
+	ul li {
+		list-style-type: none;
+	}
+
+	.frame {
+		background-color: #EFEFEF;
+		height: 100%;
+		overflow: hidden;
+		position: relative;
+		width: 100%;
+		z-index: 0;
+	}
+
+	.flex-viewport {
+		padding: 0;
+		margin: 0;
+		width: 100%;
+		font-size: 0;
+	}
+
+	.flex-viewport .slides {
+		display: inline-block;
+		width: 100%;
+	}
+
+
+	.flex-control-paging ul.dots {
+		margin: 0;
+		width: 100%;
+	}
+
+	.flex-control-paging li.dot {
+		display: inline-block;
+	    height: 12px;
+	    margin: 0 8px;
+	    position: relative;
+	    width: 12px;
+	}
+
+	.flex-control-paging li a {
+		background: none repeat scroll 0 0 #FFFFFF;
+		border: 1px solid #00B1FF;
+		border-radius: 50% 50% 50% 50%;
+		box-shadow: none;
+		display: inline-block;
+		height: 10px;
+		left: 2px;
+		outline: medium none;
+		overflow: hidden;
+		position: absolute;
+		text-indent: 100%;
+		top: 2px;
+		white-space: nowrap;
+		width: 10px;
+	}
+
+	.flex-control-paging li a.active {
+		background-color: #00B1FF;
+    	border-color: #00B1FF;
+	}
+</style>
+
+<section class="photo-alt frame" id="frame" resize-frame>
+	<div class="direction-nav" style="margin-bottom: 20px;">
+		<!-- Data bound to the next image title -->
+		<button class="nextSlide btn pull-right">Next</button>
+		<!-- Data bound to the prev image title -->
+		<button class="prevSlide btn">Prev</button>
+	</div>
+
+	<div id="slides">
+		<!-- <div class="slide" ng-repeat="slide in slides"></div> -->
+		<div class="slide"></div>
+		<div class="slide"></div>
+		<div class="slide"></div>
+		<div class="slide"></div>
+		<div class="slide"></div>
+		<div class="slide"></div>
+		<div class="slide"></div>
+		<div class="slide"></div>
+		<div class="slide"></div>
+		<div class="slide"></div>
+		<div class="slide"></div>
+		<div class="slide"></div>
+	</div>
+</section>

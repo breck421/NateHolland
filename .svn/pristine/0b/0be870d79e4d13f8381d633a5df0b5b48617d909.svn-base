@@ -1,0 +1,262 @@
+"use strict";
+var Slideshow = function () {
+	this.init();
+};
+
+Slideshow.prototype.init = function () {
+	this.setState();
+	this.bindEvents();
+};
+
+Slideshow.prototype.setState = function () {
+	this.slideCount = $('.slide').length;
+	this.slideState = 0; // 0 == not sliding, 1 == able to slide, 2 == sliding
+	this.currentSlide = 0;
+
+	// mouse position at click
+	this.startPos = {
+		x: 0,
+		y: 0
+	};
+
+	this.startPixelOffset = {
+		x: 0,
+		y: 0
+	};
+
+	this.pixelOffset = {
+		x: 0,
+		y: 0
+	};
+
+	this.viewport = {
+		width: $(window).width(),
+		height: $(window).height()
+	};
+
+	this.blar = true;
+};
+
+Slideshow.prototype.bindEvents = function () {
+	$('#slides').on('mousedown touchstart', $.proxy(this.startSlide, this));
+	$('#slides').on('mousemove touchmove', $.proxy(this.slide, this));
+	$('#slides').on('mouseup touchend', $.proxy(this.slideStop, this));
+
+	$(window).on('resize', $.proxy(this.resizeFrame, this));
+	$(window).on('mouseup', $.proxy(this.setViewport, this));
+
+	$('.direction-nav').on('click', '.nextSlide', $.proxy(this.next, this));
+	$('.direction-nav').on('click', '.prevSlide', $.proxy(this.prev, this));
+};
+
+Slideshow.prototype.next = function(event) {
+	console.log('next');
+	var self = this;
+
+	if (this.slideState === 0) {
+		this.slideState = 2;
+
+		this.pixelOffset.x = this.nextSlide();
+		this.controlStyles();
+	}
+
+	setTimeout(function() {
+		self.slideState = 0;
+	}, 250);
+};
+
+Slideshow.prototype.prev = function(event) {
+	console.log('prev');
+	var self = this;
+
+	if (this.slideState === 0) {
+		this.slideState = 2;
+
+		this.pixelOffset.x = this.prevSlide();
+		this.controlStyles();
+	}
+
+	setTimeout(function() {
+		self.slideState = 0;
+	}, 250);
+};
+
+Slideshow.prototype.setViewport = function(event) {
+	this.viewport = {
+		width: $(window).width(),
+		height: $(window).height()
+	};
+};
+
+Slideshow.prototype.resizeFrame = function(event) {
+	console.log('here');
+	var scale = $(window).width() / this.viewport.width;
+		// scale = 1;
+
+	var frame = document.getElementById("frame");
+		frame.style["-webkit-transform"] = 'scale(' + scale + ', ' + scale + ')';
+		frame.style["-moz-transform"] = 'scale(' + scale + ', ' + scale + ')';
+		frame.style["-ms-transform"] = 'scale(' + scale + ', ' + scale + ')';
+		frame.style["-o-transform"] = 'scale(' + scale + ', ' + scale + ')';
+		frame.style["transform"] = 'scale(' + scale + ', ' + scale + ')';
+};
+
+Slideshow.prototype.startSlide = function (event) {
+	event.preventDefault();
+
+	if (event.originalEvent.touches) {
+		event = event.originalEvent.touches[0];
+	}
+
+	// if not sliding, set slide state to ready
+	if (this.slideState === 0) {
+		this.slideState = 1;
+
+		// set the start positions
+		this.startPos.x = event.clientX;
+		this.startPos.y = event.clientY;
+	}
+};
+
+Slideshow.prototype.slide = function (event) {
+	event.preventDefault();
+	event = (event.originalEvent.touches) ? event.originalEvent.touches[0] : event;
+
+	var offset = {
+		x: event.clientX - this.startPos.x,
+		y: event.clientY - this.startPos.y
+	};
+
+	// ready to slide
+	if (this.slideState === 1) {
+		// and has moved
+		if(offset.x !== 0 || offset.y !== 0) {
+			this.slideState = 2;
+
+			this.startPixelOffset.x = this.pixelOffset.x;
+			this.startPixelOffset.y = this.pixelOffset.y;
+		}
+	}
+
+	// Sliding
+	if(this.slideState === 2) {
+		this.pixelOffset.x = this.startPixelOffset.x + offset.x;
+		this.pixelOffset.y = 0;// 0 === NO VertiCAL MOVEMENT // this.startPixelOffset.y + offset.y;
+
+		var slides = document.getElementById('slides');
+			slides.style["-webkit-transform"] = 'translate3d(' + this.pixelOffset.x + 'px, ' + this.pixelOffset.y + 'px, 0)';
+			slides.style["-moz-transform"] = 'translate3d(' + this.pixelOffset.x + 'px, ' + this.pixelOffset.y + 'px, 0)';
+			slides.style["-ms-transform"] = 'translate3d(' + this.pixelOffset.x + 'px, ' + this.pixelOffset.y + 'px, 0)';
+			slides.style["-0-transform"] = 'translate3d(' + this.pixelOffset.x + 'px, ' + this.pixelOffset.y + 'px, 0)';
+			slides.style["transform"] = 'translate3d(' + this.pixelOffset.x + 'px, ' + this.pixelOffset.y + 'px, 0)';
+			slides.className = "";
+	}
+};
+
+Slideshow.prototype.slideStop = function (event) {
+	event.preventDefault();
+	if (this.slideState === 2) {
+		this.slideState = 0;
+
+		this.pixelOffset.x = this.getSlideToCoords();
+
+		// var slides = document.getElementById('slides');
+		// 	slides.style["-webkit-transform"] = 'translate3d(' + this.pixelOffset.x + 'px, ' + this.pixelOffset.y + 'px, 0)';
+		// 	slides.style["-moz-transform"] = 'translate3d(' + this.pixelOffset.x + 'px, ' + this.pixelOffset.y + 'px, 0)';
+		// 	slides.style["-ms-transform"] = 'translate3d(' + this.pixelOffset.x + 'px, ' + this.pixelOffset.y + 'px, 0)';
+		// 	slides.style["-0-transform"] = 'translate3d(' + this.pixelOffset.x + 'px, ' + this.pixelOffset.y + 'px, 0)';
+		// 	slides.style["transform"] = 'translate3d(' + this.pixelOffset.x + 'px, ' + this.pixelOffset.y + 'px, 0)';
+		// 	slides.className = "";
+
+		this.controlStyles();
+	}
+};
+
+// gets the offset needed to advance to the next slide
+Slideshow.prototype.getSlideToCoords = function() {
+	var nextSlide;
+
+	if(this.pixelOffset.x < this.startPixelOffset.x) {
+		nextSlide = this.currentSlide + 1;
+	}
+	else {
+		nextSlide = this.currentSlide - 1;
+	}
+
+	var max = Math.max(nextSlide, 0);
+	nextSlide = Math.min(max, this.slideCount - 1);
+
+	this.currentSlide = nextSlide;
+	return nextSlide * -$('body').width();
+};
+
+Slideshow.prototype.nextSlide = function() {
+	if (this.slideState === 2) {
+		var nextSlide = this.currentSlide + 1;
+
+		var max = Math.max(nextSlide, 0);
+		nextSlide = Math.min(max, this.slideCount - 1);
+
+		this.currentSlide = nextSlide;
+
+		this.blar = false;
+		return nextSlide * -$('body').width();
+	}
+};
+
+Slideshow.prototype.prevSlide = function() {
+	if (this.slideState === 2) {
+		var nextSlide = this.currentSlide - 1;
+
+		var max = Math.max(nextSlide, 0);
+		nextSlide = Math.min(max, this.slideCount - 1);
+
+		this.currentSlide = nextSlide;
+		return nextSlide * -$('body').width();
+	}
+};
+
+//
+Slideshow.prototype.controlStyles = function() {
+	this.removeStyles();
+
+	var styleSheet = this.createStyles();
+	var head = document.getElementsByTagName('head')[0];
+		head.appendChild(styleSheet);
+
+	var slides = document.getElementById('slides');
+		slides.style["-webkit-transform"] = '';
+		slides.style["-moz-transform"] = '';
+		slides.style["-ms-transform"] = '';
+		slides.style["-0-transform"] = '';
+		slides.style["transform"] = '';
+		slides.className = "animate";
+};
+
+// Removes the temp style from the header if it exists
+Slideshow.prototype.removeStyles = function() {
+	var temp = document.getElementById("temp");
+
+	if(temp) {
+		temp.parentNode.removeChild(temp);
+	}
+};
+
+// Creates a style DOM node with an animate class based on the offset pixels
+Slideshow.prototype.createStyles = function () {
+	var tempStyle = document.createElement("style");
+		tempStyle.id = "temp";
+		tempStyle.type = "text/css";
+
+	var styleText = document.createTextNode("#slides.animate {" +
+		"-webkit-transform: translate3d(" + this.pixelOffset.x + "px, " + this.pixelOffset.y + "px, 0);" +
+		"-moz-transform: translate3d(" + this.pixelOffset.x + "px, " + this.pixelOffset.y + "px, 0);" +
+		"-ms-transform: translate3d(" + this.pixelOffset.x + "px, " + this.pixelOffset.y + "px, 0);" +
+		"-0-transform: translate3d(" + this.pixelOffset.x + "px, " + this.pixelOffset.y + "px, 0);" +
+		"transform: translate3d(" + this.pixelOffset.x + "px, " + this.pixelOffset.y + "px, 0);" +
+	"}");
+
+	tempStyle.appendChild(styleText);
+
+	return tempStyle;
+};
